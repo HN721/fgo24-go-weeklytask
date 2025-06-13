@@ -5,7 +5,7 @@ import (
 	"homework/product"
 )
 
-func ListDrinkByCategory(items []*product.List, category string) []*product.List {
+func ListMenuByCategory(items []*product.List, category string) []*product.List {
 	fmt.Printf("\n======= Daftar %s =======\n", category)
 	filtered := []*product.List{}
 

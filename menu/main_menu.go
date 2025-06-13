@@ -32,16 +32,16 @@ func Menu() {
 		switch Choose {
 		case 1:
 			ClearScreen()
-			ListDrinkByCategory(product.Items, "Makanan")
+			ListMenuByCategory(product.Items, "Makanan")
 
 		case 2:
 			ClearScreen()
 
-			ListDrinkByCategory(product.Items, "Minuman")
+			ListMenuByCategory(product.Items, "Minuman")
 		case 3:
 			ClearScreen()
 
-			ListDrinkByCategory(product.Items, "Snack")
+			ListMenuByCategory(product.Items, "Snack")
 		case 4:
 			ClearScreen()
 

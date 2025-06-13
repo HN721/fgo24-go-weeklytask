@@ -1,12 +1,12 @@
 package main
 
 import (
-	"homework/menu"
+	"homework/user"
 )
 
 var name string
 
 func main() {
-	menu.Menu()
-
+	// menu.Menu()
+	user.Register()
 }
