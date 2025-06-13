@@ -15,9 +15,18 @@ func Search(items []*List) {
 	go searchByName(keyword, items, resultChan)
 	// go searchByCategory(keyword, items, resultChan)
 
-	result := <-resultChan
+	result := <-resultChan // ini reciver
 	if result != nil {
 		fmt.Printf("✅ Ditemukan: %s - Rp %d (%s)\n", result.Name, result.Price, result.Category)
+		var chose string
+		fmt.Println("Tambahkan Keranjang? y/n")
+		fmt.Scanln(&chose)
+		if chose == "y" {
+			AddCart(1, result.Price, result.Name)
+			fmt.Println("Berhasil menambah kan data ke keranjang")
+
+		}
+
 	} else {
 		fmt.Println("❌ Produk tidak ditemukan.")
 	}
@@ -26,7 +35,7 @@ func Search(items []*List) {
 func searchByName(name string, items []*List, resultChan chan *List) {
 	for _, item := range items {
 		if strings.Contains(strings.ToLower(item.Name), name) {
-			resultChan <- item
+			resultChan <- item // ini sender
 			return
 		}
 	}

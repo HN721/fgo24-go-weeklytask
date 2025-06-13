@@ -37,7 +37,7 @@ func GetCart() []Cart {
 			fmt.Printf("%v. %v x%v - Rp %d\n", i+1, x.NameProduct, x.Qty, subtotal)
 		}
 		fmt.Println("Lakukan Check out? y/n")
-		fmt.Scan(&chose)
+		fmt.Scanln(&chose)
 		if chose == "y" || chose == "Y" {
 			Order(cartAmount)
 		} else {
@@ -46,5 +46,9 @@ func GetCart() []Cart {
 	} else {
 		fmt.Println("List Keranjang mu Kosong")
 	}
+	return cartAmount
+}
+func DeleteCart() []Cart {
+	cartAmount = []Cart{}
 	return cartAmount
 }

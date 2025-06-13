@@ -52,6 +52,8 @@ func Menu() {
 
 		case 6:
 			fmt.Println("Terima kasih telah berkunjung!")
+			os.Exit(0)
+
 		default:
 			fmt.Println("Pilihan tidak tersedia.")
 		}
