@@ -50,8 +50,8 @@ func Menu() {
 			searcing.Search(product.Items)
 		case 5:
 			ClearScreen()
-
 			cart.GetCart()
+
 		case 6:
 			fmt.Println("Terima kasih telah berkunjung!")
 		default:

@@ -13,8 +13,8 @@ func Search(items []*product.List) {
 
 	resultChan := make(chan *product.List)
 
-	// go searchByName(keyword, items, resultChan)
-	go searchByCategory(keyword, items, resultChan)
+	go searchByName(keyword, items, resultChan)
+	// go searchByCategory(keyword, items, resultChan)
 
 	result := <-resultChan
 	if result != nil {
@@ -33,12 +33,13 @@ func searchByName(name string, items []*product.List, resultChan chan *product.L
 	}
 	resultChan <- nil
 }
-func searchByCategory(name string, items []*product.List, resultChan chan *product.List) {
-	for _, item := range items {
-		if strings.Contains(strings.ToLower(item.Category), name) {
-			resultChan <- item
-			return
-		}
-	}
-	resultChan <- nil
-}
+
+// func searchByCategory(name string, items []*product.List, resultChan chan *product.List) {
+// 	for _, item := range items {
+// 		if strings.Contains(strings.ToLower(item.Category), name) {
+// 			resultChan <- item
+// 			return
+// 		}
+// 	}
+// 	resultChan <- nil
+// }

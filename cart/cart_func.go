@@ -26,6 +26,8 @@ func AddCart(qty int, price int, name string) []Cart {
 	return cartAmount
 }
 
+var chose string
+
 func GetCart() []Cart {
 	if len(cartAmount) > 0 {
 		fmt.Println("List Keranjang Mu")
@@ -34,6 +36,7 @@ func GetCart() []Cart {
 
 			fmt.Printf("%v. %v x%v - Rp %d\n", i+1, x.NameProduct, x.Qty, subtotal)
 		}
+
 	} else {
 		fmt.Println("List Keranjang mu Kosong")
 	}
