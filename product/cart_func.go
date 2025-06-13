@@ -1,4 +1,4 @@
-package cart
+package product
 
 import "fmt"
 
@@ -36,7 +36,13 @@ func GetCart() []Cart {
 
 			fmt.Printf("%v. %v x%v - Rp %d\n", i+1, x.NameProduct, x.Qty, subtotal)
 		}
-
+		fmt.Println("Lakukan Check out? y/n")
+		fmt.Scan(&chose)
+		if chose == "y" || chose == "Y" {
+			Order(cartAmount)
+		} else {
+			fmt.Println("Checkout dibatalkan.")
+		}
 	} else {
 		fmt.Println("List Keranjang mu Kosong")
 	}

@@ -2,7 +2,6 @@ package menu
 
 import (
 	"fmt"
-	"homework/cart"
 	"homework/product"
 )
 
@@ -30,7 +29,7 @@ func ListDrinkByCategory(items []*product.List, category string) []*product.List
 	selectedItem := filtered[num-1]
 	fmt.Printf("Berapa jumlah '%s' yang ingin dibeli? ", selectedItem.Name)
 	fmt.Scanln(&qty)
-	cart.AddCart(qty, selectedItem.Price, selectedItem.Name)
+	product.AddCart(qty, selectedItem.Price, selectedItem.Name)
 
 	return filtered
 }

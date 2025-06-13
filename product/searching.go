@@ -1,17 +1,16 @@
-package searcing
+package product
 
 import (
 	"fmt"
-	"homework/product"
 	"strings"
 )
 
-func Search(items []*product.List) {
+func Search(items []*List) {
 	var keyword string
 	fmt.Print("Masukkan nama produk yang ingin dicari: ")
 	fmt.Scanln(&keyword)
 
-	resultChan := make(chan *product.List)
+	resultChan := make(chan *List)
 
 	go searchByName(keyword, items, resultChan)
 	// go searchByCategory(keyword, items, resultChan)
@@ -24,7 +23,7 @@ func Search(items []*product.List) {
 	}
 }
 
-func searchByName(name string, items []*product.List, resultChan chan *product.List) {
+func searchByName(name string, items []*List, resultChan chan *List) {
 	for _, item := range items {
 		if strings.Contains(strings.ToLower(item.Name), name) {
 			resultChan <- item
@@ -34,7 +33,7 @@ func searchByName(name string, items []*product.List, resultChan chan *product.L
 	resultChan <- nil
 }
 
-// func searchByCategory(name string, items []*product.List, resultChan chan *product.List) {
+// func searchByCategory(name string, items []*List, resultChan chan *List) {
 // 	for _, item := range items {
 // 		if strings.Contains(strings.ToLower(item.Category), name) {
 // 			resultChan <- item

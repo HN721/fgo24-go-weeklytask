@@ -3,9 +3,7 @@ package menu
 import (
 	"bufio"
 	"fmt"
-	"homework/cart"
 	"homework/product"
-	"homework/searcing"
 	"os"
 	"strings"
 )
@@ -47,10 +45,10 @@ func Menu() {
 		case 4:
 			ClearScreen()
 
-			searcing.Search(product.Items)
+			product.Search(product.Items)
 		case 5:
 			ClearScreen()
-			cart.GetCart()
+			product.GetCart()
 
 		case 6:
 			fmt.Println("Terima kasih telah berkunjung!")
