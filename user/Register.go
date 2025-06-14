@@ -1,6 +1,8 @@
 package user
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func Register() {
 	var username, email, password string
