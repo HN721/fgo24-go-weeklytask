@@ -10,11 +10,8 @@ import (
 )
 
 func ListMenuByCategory(items []*product.List, category string) []*product.List {
-
 	pageSize := 4
-
 	filtered := []*product.List{}
-
 	for _, item := range items {
 		if item.Category == category {
 			filtered = append(filtered, item)
@@ -33,14 +30,11 @@ func ListMenuByCategory(items []*product.List, category string) []*product.List 
 		ClearScreen()
 		start := currentPage * pageSize
 		end := min(start+pageSize, len(filtered))
-		fmt.Println(end)
 		fmt.Printf("\n======= Daftar %s (Halaman %d dari %d) =======\n", category, currentPage+1, totalPages)
-		fmt.Println(len(filtered))
 		for i := start; i < end; i++ {
 			fmt.Printf("%d. %s - Rp %d\n", i+1, filtered[i].Name, filtered[i].Price)
 		}
-
-		fmt.Println("\n[n] Next | [p] Prev | [no <nomor>] Select Produk | [q] Quit")
+		fmt.Println("\n[n] Next | [p] Prev | [no <nomor>]  Produk | [q] Quit")
 		fmt.Print("Pilih: ")
 		input, _ := reader.ReadString('\n')
 		input = strings.TrimSpace(input)

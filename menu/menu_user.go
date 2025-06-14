@@ -3,20 +3,16 @@ package menu
 import (
 	"fmt"
 	"homework/user"
+	"homework/utils"
 )
 
 func Menu_user() {
 	for {
 		ClearScreen()
-		fmt.Println("======= Login/Register di HN CafeSHOP =======")
-		fmt.Println("Pilih Menu:")
-		fmt.Println("1. Register")
-		fmt.Println("2. Login")
-		fmt.Println("3. EXIT")
-		fmt.Print("Pilih : ")
-		fmt.Scanln(&Choose)
-
-		switch Choose {
+		layoutMenu()
+		Input := utils.Input
+		fmt.Scanln(&Input)
+		switch Input {
 		case 1:
 			user.Register()
 		case 2:

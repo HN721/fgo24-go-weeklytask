@@ -3,6 +3,7 @@ package product
 import (
 	"bufio"
 	"fmt"
+	"homework/utils"
 	"os"
 	"strings"
 )
@@ -32,10 +33,7 @@ func Search(items []*List) {
 
 	for {
 		start := currentPage * pageSize
-		end := start + pageSize
-		if end > len(results) {
-			end = len(results)
-		}
+		end := min(start+pageSize, len(results))
 		ClearScreen()
 		fmt.Printf("\n✅ Hasil Pencarian (Halaman %d/%d):\n", currentPage+1, totalPages)
 		for i := start; i < end; i++ {
@@ -43,10 +41,24 @@ func Search(items []*List) {
 		}
 
 		if totalPages == 1 {
-			break
+			fmt.Println("[no] Produk ")
+			fmt.Print("Pilihan: ")
+			input, _ := reader.ReadString('\n')
+			input = strings.TrimSpace(input)
+			strings.HasPrefix(input, "no ")
+			pilih := utils.Input
+			_, err := fmt.Sscanf(input, "no %d", &pilih)
+			if err == nil && pilih > 0 && pilih <= len(results) {
+				selected := results[pilih-1]
+				var qty int
+				fmt.Printf("Berapa jumlah '%s' yang ingin dibeli? ", selected.Name)
+				AddCart(qty, selected.Price, selected.Name)
+				fmt.Printf("✅ '%s' ditambahkan ke keranjang.\n", selected.Name)
+				return
+			}
 		}
 
-		fmt.Println("\n[n] Next | [p] Prev | [s <nomor>] Select Produk | [q] Quit")
+		fmt.Println("\n[n] Next | [p] Prev | [no <nomor>]  Produk | [q] Quit")
 		fmt.Print("Pilihan: ")
 		input, _ := reader.ReadString('\n')
 		input = strings.TrimSpace(input)
@@ -55,9 +67,9 @@ func Search(items []*List) {
 			currentPage++
 		} else if input == "p" && currentPage > 0 {
 			currentPage--
-		} else if strings.HasPrefix(input, "s ") {
+		} else if strings.HasPrefix(input, "no ") {
 			var pilih int
-			_, err := fmt.Sscanf(input, "s %d", &pilih)
+			_, err := fmt.Sscanf(input, "no %d", &pilih)
 			if err == nil && pilih > 0 && pilih <= len(results) {
 				selected := results[pilih-1]
 				AddCart(1, selected.Price, selected.Name)
