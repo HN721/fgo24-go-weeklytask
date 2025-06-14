@@ -22,7 +22,7 @@ func Menu_user() {
 		case 2:
 			if user.Login() {
 				Menu()
-				return // ⬅️ TAMBAHKAN INI!
+				return
 			} else {
 				fmt.Println("❌ Email atau Password salah")
 			}
