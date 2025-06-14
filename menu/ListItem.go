@@ -30,6 +30,7 @@ func ListMenuByCategory(items []*product.List, category string) []*product.List 
 		ClearScreen()
 		start := currentPage * pageSize
 		end := min(start+pageSize, len(filtered))
+
 		fmt.Printf("\n======= Daftar %s (Halaman %d dari %d) =======\n", category, currentPage+1, totalPages)
 		for i := start; i < end; i++ {
 			fmt.Printf("%d. %s - Rp %d\n", i+1, filtered[i].Name, filtered[i].Price)
