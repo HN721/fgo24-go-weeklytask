@@ -10,6 +10,7 @@ func menuUser() {
 	fmt.Println("3. Lihat Menu Snack")
 	fmt.Println("4. Cari Produk?")
 	fmt.Println("5. Lihat Cart?")
-	fmt.Println("6. EXIT")
+	fmt.Println("6. History Transaction")
+	fmt.Println("7. EXIT")
 	fmt.Print("Pilih : ")
 }

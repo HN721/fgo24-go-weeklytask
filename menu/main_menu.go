@@ -41,15 +41,16 @@ func Menu() {
 		case 5:
 			ClearScreen()
 			product.GetCart()
-
 		case 6:
+			product.ShowHistory()
+		case 7:
 			fmt.Println("Terima kasih telah berkunjung!")
 			os.Exit(0)
 
 		default:
 			fmt.Println("Pilihan tidak tersedia.")
 		}
-		fmt.Print("\nIngin pesan lagi? (y/n): ")
+		fmt.Print("\n Kembali ke menu? (y/n): ")
 		answer, _ := reader.ReadString('\n')
 		answer = strings.TrimSpace(strings.ToLower(answer))
 

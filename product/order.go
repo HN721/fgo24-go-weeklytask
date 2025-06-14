@@ -9,6 +9,7 @@ func Order(cart []Cart) {
 		subtotal := item.Qty * item.Price
 		total += subtotal
 		fmt.Printf("%d. %s x%d - Rp %d\n", i+1, item.NameProduct, item.Qty, subtotal)
+		HistoryTransaction(item.NameProduct, item.Qty, total)
 	}
 	fmt.Printf("Total belanja: Rp %d\n", total)
 	DeleteCart()
