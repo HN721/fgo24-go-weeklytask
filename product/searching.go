@@ -95,6 +95,7 @@ func Search(items []*List, cart CartHandler) {
 }
 
 func searchByName(name string, items []*List, resultChan chan []*List, wg *sync.WaitGroup) {
+
 	defer wg.Done()
 	var results []*List
 	keyword := strings.ToLower(name)

@@ -1,8 +1,14 @@
 package product
 
-import "fmt"
+import (
+	"fmt"
+	"sync"
+	"time"
+)
 
-func Order(cart []Cart, handler CartHandler) {
+func Order(cart []Cart, handler CartHandler, resultChan chan bool, wg *sync.WaitGroup) {
+	defer wg.Done()
+	defer func() { resultChan <- true }()
 	fmt.Println("\n--- Detail Pesanan Anda ---")
 	var total int
 	for i, item := range cart {
@@ -13,6 +19,8 @@ func Order(cart []Cart, handler CartHandler) {
 	}
 	fmt.Printf("Total belanja: Rp %d\n", total)
 	handler.DeleteCart()
+	fmt.Println("Tunggu Sebentar Sedang melakukan Verifikasi Pesanan......")
 
-	fmt.Println("Pesanan Anda berhasil diproses. Terima kasih telah berbelanja!")
+	time.Sleep(3 * time.Second)
+
 }

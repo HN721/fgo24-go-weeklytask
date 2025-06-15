@@ -1,6 +1,10 @@
 package product
 
-import "fmt"
+import (
+	"fmt"
+	"sync"
+	"time"
+)
 
 type Cart struct {
 	Qty         int
@@ -52,12 +56,22 @@ func (c *cartService) GetCart() []Cart {
 		subtotal := x.Qty * x.Price
 		fmt.Printf("%d. %s x%d - Rp %d\n", i+1, x.NameProduct, x.Qty, subtotal)
 	}
-
+	var wg = sync.WaitGroup{}
+	resultChan := make(chan bool)
+	wg.Add(1)
 	var chose string
 	fmt.Println("Lakukan Check out? y/n")
 	fmt.Scanln(&chose)
 	if chose == "y" || chose == "Y" {
-		Order(c.cartItems, c)
+		go Order(c.cartItems, c, resultChan, &wg)
+		time.Sleep(3 * time.Second)
+		result := <-resultChan
+		if result {
+			fmt.Println("✅ Checkout selesai")
+
+		}
+
+		wg.Wait()
 	} else {
 		fmt.Println("Checkout dibatalkan.")
 	}
