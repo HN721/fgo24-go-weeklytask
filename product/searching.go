@@ -52,6 +52,7 @@ func Search(items []*List, cart CartHandler) {
 				selected := results[pilih-1]
 				var qty int
 				fmt.Printf("Berapa jumlah '%s' yang ingin dibeli? ", selected.Name)
+				fmt.Scanln(&qty)
 				cart.AddCart(qty, selected.Price, selected.Name)
 				fmt.Printf("✅ '%s' ditambahkan ke keranjang.\n", selected.Name)
 				return
