@@ -6,6 +6,8 @@ import (
 	"homework/utils"
 	"os"
 	"strings"
+	"sync"
+	"time"
 )
 
 func ClearScreen() {
@@ -15,11 +17,15 @@ func Search(items []*List, cart CartHandler) {
 	var keyword string
 	fmt.Print("Masukkan nama produk yang ingin dicari: ")
 	fmt.Scanln(&keyword)
-
+	var wg sync.WaitGroup
+	wg.Add(1)
 	resultChan := make(chan []*List)
-	go searchByName(keyword, items, resultChan)
-
+	go searchByName(keyword, items, resultChan, &wg)
+	fmt.Println("🔍 Mencari produk...")
+	time.Sleep(3 * time.Second)
 	results := <-resultChan
+	wg.Wait()
+
 	if len(results) == 0 {
 		fmt.Println("❌ Produk tidak ditemukan.")
 		return
@@ -88,10 +94,14 @@ func Search(items []*List, cart CartHandler) {
 	}
 }
 
-func searchByName(name string, items []*List, resultChan chan []*List) {
+func searchByName(name string, items []*List, resultChan chan []*List, wg *sync.WaitGroup) {
+	defer wg.Done()
 	var results []*List
 	keyword := strings.ToLower(name)
-
+	if len(items) == 0 {
+		resultChan <- results
+		return
+	}
 	for _, item := range items {
 		if strings.Contains(strings.ToLower(item.Name), keyword) {
 			results = append(results, item)
