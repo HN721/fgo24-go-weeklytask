@@ -2,6 +2,7 @@ package menu
 
 import (
 	"fmt"
+	"homework/product"
 	"homework/user"
 	"homework/utils"
 )
@@ -17,7 +18,9 @@ func Menu_user() {
 			user.Register()
 		case 2:
 			if user.Login() {
-				Menu()
+				cart := product.NewCartService()
+
+				Menu(cart)
 				return
 			} else {
 				fmt.Println("❌ Email atau Password salah")

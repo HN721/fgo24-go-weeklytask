@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-func ListMenuByCategory(items []*product.List, category string) []*product.List {
+func ListMenuByCategory(items []*product.List, category string, cart product.CartHandler) []*product.List {
 	pageSize := 4
 	filtered := []*product.List{}
 	for _, item := range items {
@@ -55,7 +55,7 @@ func ListMenuByCategory(items []*product.List, category string) []*product.List 
 			var qty int
 			fmt.Printf("Berapa jumlah '%s' yang ingin dibeli? ", choseItem.Name)
 			fmt.Scanln(&qty)
-			product.AddCart(qty, choseItem.Price, choseItem.Name)
+			cart.AddCart(qty, choseItem.Price, choseItem.Name)
 			fmt.Println("✅ Ditambahkan ke keranjang.")
 			break
 		} else if input == "q" {

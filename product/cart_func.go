@@ -8,47 +8,65 @@ type Cart struct {
 	NameProduct string
 }
 
-var cartAmount = []Cart{}
+type CartHandler interface {
+	AddCart(qty int, price int, name string) []Cart
+	GetCart() []Cart
+	DeleteCart() []Cart
+}
 
-func AddCart(qty int, price int, name string) []Cart {
-	cartItem := Cart{
+type cartService struct {
+	cartItems []Cart
+}
+
+func NewCartService() CartHandler {
+	return &cartService{
+		cartItems: []Cart{},
+	}
+}
+
+func (c *cartService) AddCart(qty int, price int, name string) []Cart {
+	item := Cart{
 		Qty:         qty,
 		Price:       price,
 		NameProduct: name,
 	}
-	cartAmount = append(cartAmount, cartItem)
-	for i, x := range cartAmount {
+	c.cartItems = append(c.cartItems, item)
+
+	fmt.Println("Keranjang Belanja Anda:")
+	for i, x := range c.cartItems {
 		subtotal := x.Qty * x.Price
-		fmt.Println("Keranjang Belanja Anda")
-		fmt.Printf("%v. %v x%v - Rp %d\n", i+1, x.NameProduct, x.Qty, subtotal)
+		fmt.Printf("%d. %s x%d - Rp %d\n", i+1, x.NameProduct, x.Qty, subtotal)
 	}
 
-	return cartAmount
+	return c.cartItems
 }
 
-var chose string
-
-func GetCart() []Cart {
-	if len(cartAmount) > 0 {
-		fmt.Println("List Keranjang Mu")
-		for i, x := range cartAmount {
-			subtotal := x.Qty * x.Price
-
-			fmt.Printf("%v. %v x%v - Rp %d\n", i+1, x.NameProduct, x.Qty, subtotal)
-		}
-		fmt.Println("Lakukan Check out? y/n")
-		fmt.Scanln(&chose)
-		if chose == "y" || chose == "Y" {
-			Order(cartAmount)
-		} else {
-			fmt.Println("Checkout dibatalkan.")
-		}
-	} else {
+func (c *cartService) GetCart() []Cart {
+	if len(c.cartItems) == 0 {
 		fmt.Println("List Keranjang mu Kosong")
+		return c.cartItems
 	}
-	return cartAmount
+
+	fmt.Println("List Keranjang Mu:")
+	for i, x := range c.cartItems {
+		subtotal := x.Qty * x.Price
+		fmt.Printf("%d. %s x%d - Rp %d\n", i+1, x.NameProduct, x.Qty, subtotal)
+	}
+
+	var chose string
+	fmt.Println("Lakukan Check out? y/n")
+	fmt.Scanln(&chose)
+	if chose == "y" || chose == "Y" {
+		Order(c.cartItems, c)
+	} else {
+		fmt.Println("Checkout dibatalkan.")
+	}
+
+	return c.cartItems
 }
-func DeleteCart() []Cart {
-	cartAmount = []Cart{}
-	return cartAmount
+
+func (c *cartService) DeleteCart() []Cart {
+	c.cartItems = []Cart{}
+	fmt.Println("Keranjang berhasil dikosongkan.")
+	return c.cartItems
 }

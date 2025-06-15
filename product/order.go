@@ -2,7 +2,7 @@ package product
 
 import "fmt"
 
-func Order(cart []Cart) {
+func Order(cart []Cart, handler CartHandler) {
 	fmt.Println("\n--- Detail Pesanan Anda ---")
 	var total int
 	for i, item := range cart {
@@ -12,6 +12,7 @@ func Order(cart []Cart) {
 		HistoryTransaction(item.NameProduct, item.Qty, total)
 	}
 	fmt.Printf("Total belanja: Rp %d\n", total)
-	DeleteCart()
+	handler.DeleteCart()
+
 	fmt.Println("Pesanan Anda berhasil diproses. Terima kasih telah berbelanja!")
 }

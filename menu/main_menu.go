@@ -12,7 +12,7 @@ import (
 func ClearScreen() {
 	print("\033[H\033[2J")
 }
-func Menu() {
+func Menu(cart product.CartHandler) {
 	reader := bufio.NewReader(os.Stdin)
 
 	for {
@@ -24,23 +24,23 @@ func Menu() {
 		switch input {
 		case 1:
 			ClearScreen()
-			ListMenuByCategory(product.Items, "Makanan")
+			ListMenuByCategory(product.Items, "Makanan", cart)
 
 		case 2:
 			ClearScreen()
 
-			ListMenuByCategory(product.Items, "Minuman")
+			ListMenuByCategory(product.Items, "Minuman", cart)
 		case 3:
 			ClearScreen()
 
-			ListMenuByCategory(product.Items, "Snack")
+			ListMenuByCategory(product.Items, "Snack", cart)
 		case 4:
 			ClearScreen()
 
-			product.Search(product.Items)
+			product.Search(product.Items, cart)
 		case 5:
 			ClearScreen()
-			product.GetCart()
+			cart.GetCart()
 		case 6:
 			product.ShowHistory()
 		case 7:

@@ -11,7 +11,7 @@ import (
 func ClearScreen() {
 	print("\033[H\033[2J")
 }
-func Search(items []*List) {
+func Search(items []*List, cart CartHandler) {
 	var keyword string
 	fmt.Print("Masukkan nama produk yang ingin dicari: ")
 	fmt.Scanln(&keyword)
@@ -52,7 +52,7 @@ func Search(items []*List) {
 				selected := results[pilih-1]
 				var qty int
 				fmt.Printf("Berapa jumlah '%s' yang ingin dibeli? ", selected.Name)
-				AddCart(qty, selected.Price, selected.Name)
+				cart.AddCart(qty, selected.Price, selected.Name)
 				fmt.Printf("✅ '%s' ditambahkan ke keranjang.\n", selected.Name)
 				return
 			}
@@ -72,7 +72,7 @@ func Search(items []*List) {
 			_, err := fmt.Sscanf(input, "no %d", &pilih)
 			if err == nil && pilih > 0 && pilih <= len(results) {
 				selected := results[pilih-1]
-				AddCart(1, selected.Price, selected.Name)
+				cart.AddCart(1, selected.Price, selected.Name)
 				fmt.Printf("✅ '%s' ditambahkan ke keranjang.\n", selected.Name)
 				return
 			} else {
